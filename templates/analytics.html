@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Аналітика атак</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 900px; margin: auto; background: #f9f9f9; }
+        h1 { font-size: 24px; }
+        ul { list-style-type: disc; padding-left: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 8px 12px; border: 1px solid #ccc; text-align: left; }
+        th { background-color: #f0f0f0; }
+        code { background: #eee; padding: 2px 4px; border-radius: 3px; display: block; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>📊 Аналітика атак</h1>
+
+    <p><strong>🔐 AI-атак за сьогодні:</strong> {{ ai_today }}</p>
+
+    <h2>📅 Активність по годинах</h2>
+    <table>
+        <thead>
+            <tr><th>Година</th><th>Кількість атак</th></tr>
+        </thead>
+        <tbody>
+        {% for hour, count in hourly_data %}
+            <tr><td>{{ hour }}</td><td>{{ count }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>🔥 Топ-5 останніх атак</h2>
+    <ul>
+        {% for attack in top_queries %}
+            <li>
+                🕒 <strong>{{ attack.timestamp }}</strong> |
+                🎯 <strong>{{ attack.reason }}</strong> |
+                🧠 Score: {{ attack.score or "-" }}<br>
+                💬 <code>{{ attack.query }}</code>
+            </li>
+        {% else %}
+            <li>Немає зафіксованих атак.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">← Назад</a>
+</body>
+</html>

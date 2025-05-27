@@ -1,0 +1,40 @@
+[2025-05-15 17:38:30] BLOCKED (AI, 1.00 NEGATIVE) - <!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Аналітика атак</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #f2f2f2; }
+        .highlight { font-weight: bold; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>📊 Аналітика атак</h1>
+
+    <p class="highlight">🤖 Кількість AI-атак за сьогодні: {{ ai_today }}</p>
+
+    <h2>🕒 Активність по годинах:</h2>
+    <table>
+        <tr><th>Година</th><th>Кількість атак</th></tr>
+        {% for hour, count in hourly_data %}
+        <tr><td>{{ hour }}</td><td>{{ count }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <h2>🔥 Топ-5 підозрілих запитів (AI):</h2>
+    <pre>
+{% for line in top_queries %}
+{{ line }}
+{% endfor %}
+    </pre>
+</body>
+</html>
+[2025-05-15 17:39:09] BLOCKED (AI, 0.96 NEGATIVE) - SELECT name, department FROM employees WHERE salary > 40000;
+[2025-05-15 17:39:27] BLOCKED (AI, 0.99 NEGATIVE) - SELECT * FROM accounts WHERE id = 1 OR 1=1;
+[2025-05-15 17:39:36] BLOCKED (AI, 1.00 NEGATIVE) - SELECT * FROM login WHERE user = '' OR '' = '';
+[2025-05-15 17:39:45] BLOCKED (RULE) - SELECT * FROM clients WHERE email = 'x' UNION SELECT credit_card FROM payments;
+[2025-05-15 17:40:12] BLOCKED (AI, 0.99 NEGATIVE) - SELECT * FROM employees WHERE hire_date >= '2020-01-01' LIMIT 10;
+[2025-05-15 17:40:24] BLOCKED (AI, 0.99 NEGATIVE) - SELECT * FROM accounts WHERE id = 1 OR 1=1;
